@@ -9,22 +9,24 @@ namespace DataExtractor.Biz.Services
 {
     public class ExtractorService : IExtractorService
     {
+        private readonly string _validStartTag = "<expense>";
+        private readonly string _validEndTag = "</expense>";
         public ClaimExpense ExtractData(string message)
         {
             if (string.IsNullOrEmpty(message))
             {
                 throw new InvalidFormatException();
             }
-            
-            var startIndex = message.IndexOf("<");
-            var endIndex = message.LastIndexOf(">");
+
+            var startIndex = message.IndexOf(_validStartTag);
+            var endIndex = message.LastIndexOf(_validEndTag);
 
             if (startIndex < 0 || endIndex < 0)
             {
                 throw new InvalidFormatException();
             }
 
-            var xmlMessage = message.Substring(startIndex, (endIndex + 1) - startIndex);
+            var xmlMessage = message.Substring(startIndex, (endIndex + _validEndTag.Length) - startIndex);
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(xmlMessage);
 
