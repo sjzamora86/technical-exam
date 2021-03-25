@@ -6,8 +6,9 @@ namespace DataExtractor.Biz.Models
 {
     public class ClaimExpense
     {
-        public decimal TotalAmount { get; set; }
-        public decimal GstAmount { get; set; }
+        public double TotalAmount { get; set; }
+        public double TotalAmountExcludedGst => Math.Round(TotalAmount / 1.15, 2);
+        public double GstAmount => Math.Round(TotalAmount - TotalAmountExcludedGst, 2);
         public string CostCentre { get; set; } = "UNKNOWN";
         public string PaymentMethod { get; set; }
 

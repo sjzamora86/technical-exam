@@ -40,8 +40,7 @@ namespace DataExtractor.Service.Tests
             var expectedResult = new ClaimExpense()
             {
                 CostCentre = "DEV002",
-                TotalAmount = 1000,
-                GstAmount = 150,
+                TotalAmount = 1150,
                 PaymentMethod = "Credit Card"
             };
 

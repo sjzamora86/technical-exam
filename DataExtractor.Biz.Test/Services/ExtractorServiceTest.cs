@@ -31,10 +31,11 @@ namespace DataExtractor.Biz.Test
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(1000, result.TotalAmount);
+            Assert.AreEqual(1150, result.TotalAmount);
+            Assert.AreEqual(1000, result.TotalAmountExcludedGst);
             Assert.AreEqual(150, result.GstAmount);
             Assert.AreEqual("DEV002", result.CostCentre);
-            Assert.AreEqual("personal card", result.CostCentre);
+            Assert.AreEqual("personal card", result.PaymentMethod);
         }
 
         [TestMethod]
@@ -52,10 +53,23 @@ namespace DataExtractor.Biz.Test
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(1000, result.TotalAmount);
+            Assert.AreEqual(1150, result.TotalAmount);
+            Assert.AreEqual(1000, result.TotalAmountExcludedGst);
             Assert.AreEqual(150, result.GstAmount);
             Assert.AreEqual("UNKNOWN", result.CostCentre);
-            Assert.AreEqual("personal card", result.CostCentre);
+            Assert.AreEqual("personal card", result.PaymentMethod);
+        }
+
+        [TestMethod]
+        public void ExtractData_EmptyMessage_ThrowInvalidFormatException()
+        {
+            // Arrange
+            // Act
+            // Assert
+            Assert.ThrowsException<InvalidFormatException>(() =>
+            {
+                var result = _extractorService.ExtractData(string.Empty);
+            });
         }
 
         [TestMethod]
